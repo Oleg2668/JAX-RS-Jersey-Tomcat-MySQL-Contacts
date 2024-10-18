@@ -1,0 +1,388 @@
+@startuml
+class org.example.app.config.AppResourceConfig {
+}
+class org.example.app.service.product.ProductServiceImpl {
+- ProductRepository repository
++ Product create(ProductDtoRequest)
++ List<Product> getAll()
++ Product getById(Long)
++ Product update(Long,ProductDtoRequest)
++ boolean deleteById(Long)
+}
+
+
+class org.example.app.dto.user.UserDtoUpdateResponse {
+- int statusCode
+- String reasonPhrase
+- boolean success
+- String message
+- User user
++ {static} String SUCCESS_MESSAGE
++ {static} String FAILURE_MESSAGE
++ {static} UserDtoUpdateResponse of(Long,boolean,User)
++ int statusCode()
++ String message()
++ String reasonPhrase()
++ boolean success()
++ User user()
+}
+
+
+interface org.example.app.repository.BaseRepository {
+~ void save(S)
+~ Optional<List<T>> getAll()
+~ Optional<T> getById(Long)
+~ void update(Long,S)
+~ boolean deleteById(Long)
+}
+
+interface org.example.app.service.BaseService {
+~ T create(S)
+~ List<T> getAll()
+~ T getById(Long)
+~ T update(Long,S)
+~ boolean deleteById(Long)
+}
+
+class org.example.app.service.user.UserServiceImpl {
+- UserRepository repository
++ User create(UserDtoRequest)
++ List<User> getAll()
++ User getById(Long)
++ User update(Long,UserDtoRequest)
++ boolean deleteById(Long)
++ List<User> fetchByFirstName(String)
++ List<User> fetchByLastName(String)
++ List<User> fetchAllOrderBy(String)
++ List<User> fetchByLastNameOrderBy(String,String)
++ List<User> fetchBetweenIds(int,int)
++ List<User> fetchLastNameIn(String,String)
+}
+
+
+class org.example.app.repository.product.ProductRepositoryImpl {
+- {static} Logger LOGGER
++ void save(ProductDtoRequest)
++ Optional<List<Product>> getAll()
++ Optional<Product> getById(Long)
++ void update(Long,ProductDtoRequest)
++ boolean deleteById(Long)
++ boolean isIdExists(Long)
++ Optional<Product> getLastEntity()
+}
+
+
+class org.example.app.dto.product.ProductDtoUpdateResponse {
+- int statusCode
+- String reasonPhrase
+- boolean success
+- String message
+- Product product
++ {static} String SUCCESS_MESSAGE
++ {static} String FAILURE_MESSAGE
++ {static} ProductDtoUpdateResponse of(Long,boolean,Product)
++ int statusCode()
++ String message()
++ String reasonPhrase()
++ boolean success()
++ Product product()
+}
+
+
+class org.example.app.dto.product.ProductDtoCreateResponse {
+- int statusCode
+- String reasonPhrase
+- boolean success
+- String message
+- Product product
++ {static} String SUCCESS_MESSAGE
++ {static} String FAILURE_MESSAGE
++ {static} ProductDtoCreateResponse of(boolean,Product)
++ int statusCode()
++ String message()
++ String reasonPhrase()
++ boolean success()
++ Product product()
+}
+
+
+class org.example.app.entity.Product {
+- Long id
+- String productName
+- String measure
+- Double quota
+- Double price
++ Long getId()
++ void setId(Long)
++ String getProductName()
++ void setProductName(String)
++ String getMeasure()
++ void setMeasure(String)
++ Double getQuota()
++ void setQuota(Double)
++ Double getPrice()
++ void setPrice(Double)
+}
+
+
+class org.example.app.controller.UserController {
+- UserService userService
++ Response createUser(UserDtoRequest)
++ Response getAllUsers()
++ Response getUserById(Long)
++ Response updateUserById(Long,UserDtoRequest)
++ Response deleteUserById(Long)
++ Response fetchByFirstName(String)
++ Response fetchByLastName(String)
++ Response fetchAllOrderBy(String)
++ Response fetchByLastNameOrderBy(String,String)
++ Response fetchBetweenIds(int,int)
++ Response fetchLastNameIn(String,String)
+}
+
+
+class org.example.app.dto.user.UserDtoListResponse {
+- int statusCode
+- String reasonPhrase
+- boolean success
+- String message
+- List<User> userList
++ {static} String SUCCESS_MESSAGE
++ {static} String FAILURE_MESSAGE
++ {static} UserDtoListResponse of(boolean,List<User>)
++ int statusCode()
++ String message()
++ List<User> userList()
++ String reasonPhrase()
++ boolean success()
+}
+
+
+interface org.example.app.service.product.ProductService {
+~ Product create(ProductDtoRequest)
+~ List<Product> getAll()
+~ Product getById(Long)
+~ Product update(Long,ProductDtoRequest)
+~ boolean deleteById(Long)
+}
+
+class org.example.app.config.HibernateUtil {
+- {static} Logger LOGGER
+- {static} SessionFactory sessionFactory
++ {static} SessionFactory getSessionFactory()
+- {static} Configuration getConfiguration()
+}
+
+
+class org.example.app.entity.User {
+- Long id
+- String firstName
+- String lastName
+- String email
+}
+
+class org.example.app.config.ApplicationBinder {
++ boolean configure(FeatureContext)
+}
+
+interface org.example.app.repository.product.ProductRepository {
+~ void save(ProductDtoRequest)
+~ Optional<List<Product>> getAll()
+~ Optional<Product> getById(Long)
+~ void update(Long,ProductDtoRequest)
+~ boolean deleteById(Long)
+~ boolean isIdExists(Long)
+~ Optional<Product> getLastEntity()
+}
+
+interface org.example.app.service.user.UserService {
+~ User create(UserDtoRequest)
+~ List<User> getAll()
+~ User getById(Long)
+~ User update(Long,UserDtoRequest)
+~ boolean deleteById(Long)
+~ List<User> fetchByFirstName(String)
+~ List<User> fetchByLastName(String)
+~ List<User> fetchAllOrderBy(String)
+~ List<User> fetchByLastNameOrderBy(String,String)
+~ List<User> fetchBetweenIds(int,int)
+~ List<User> fetchLastNameIn(String,String)
+}
+
+class org.example.app.dto.user.UserDtoByIdResponse {
+- int statusCode
+- String reasonPhrase
+- boolean success
+- String message
+- User user
++ {static} String SUCCESS_MESSAGE
++ {static} String FAILURE_MESSAGE
++ {static} UserDtoByIdResponse of(Long,boolean,User)
++ int statusCode()
++ String message()
++ String reasonPhrase()
++ boolean success()
++ User user()
+}
+
+
+class org.example.app.dto.user.UserDtoDeleteResponse {
+- int statusCode
+- String reasonPhrase
+- boolean success
+- String message
++ {static} String SUCCESS_MESSAGE
++ {static} String FAILURE_MESSAGE
++ {static} UserDtoDeleteResponse of(Long,boolean)
++ int statusCode()
++ String message()
++ String reasonPhrase()
++ boolean success()
+}
+
+
+interface org.example.app.repository.user.UserRepository {
+~ void save(UserDtoRequest)
+~ Optional<List<User>> getAll()
+~ Optional<User> getById(Long)
+~ void update(Long,UserDtoRequest)
+~ boolean deleteById(Long)
+~ Optional<User> getLastEntity()
+~ Optional<List<User>> fetchByFirstName(String)
+~ Optional<List<User>> fetchByLastName(String)
+~ Optional<List<User>> fetchAllOrderBy(String)
+~ Optional<List<User>> fetchByLastNameOrderBy(String,String)
+~ Optional<List<User>> fetchBetweenIds(Integer,Integer)
+~ Optional<List<User>> fetchLastNameIn(String,String)
+}
+
+class org.example.app.dto.user.UserDtoCreateResponse {
+- int statusCode
+- String reasonPhrase
+- boolean success
+- String message
+- User user
++ {static} String SUCCESS_MESSAGE
++ {static} String FAILURE_MESSAGE
++ {static} UserDtoCreateResponse of(boolean,User)
++ int statusCode()
++ String message()
++ String reasonPhrase()
++ boolean success()
++ User user()
+}
+
+
+class org.example.app.dto.product.ProductDtoRequest {
+- Long id
+- String productName
+- String measure
+- Double quota
+- Double price
++ Double price()
++ Double quota()
++ String productName()
++ Long id()
++ String measure()
+}
+
+
+class org.example.app.repository.user.UserRepositoryImpl {
++ void save(UserDtoRequest)
++ Optional<List<User>> getAll()
++ Optional<User> getById(Long)
++ void update(Long,UserDtoRequest)
++ boolean deleteById(Long)
++ Optional<User> getLastEntity()
++ Optional<List<User>> fetchByFirstName(String)
++ Optional<List<User>> fetchByLastName(String)
++ Optional<List<User>> fetchAllOrderBy(String)
++ Optional<List<User>> fetchByLastNameOrderBy(String,String)
++ Optional<List<User>> fetchBetweenIds(Integer,Integer)
++ Optional<List<User>> fetchLastNameIn(String,String)
+}
+
+class org.example.app.dto.product.ProductDtoListResponse {
+- int statusCode
+- String reasonPhrase
+- boolean success
+- String message
+- List<Product> productList
++ {static} String SUCCESS_MESSAGE
++ {static} String FAILURE_MESSAGE
++ {static} ProductDtoListResponse of(boolean,List<Product>)
++ int statusCode()
++ String message()
++ List<Product> productList()
++ String reasonPhrase()
++ boolean success()
+}
+
+
+class org.example.app.dto.product.ProductDtoByIdResponse {
+- int statusCode
+- String reasonPhrase
+- boolean success
+- String message
+- Product product
++ {static} String SUCCESS_MESSAGE
++ {static} String FAILURE_MESSAGE
++ {static} ProductDtoByIdResponse of(Long,boolean,Product)
++ int statusCode()
++ String message()
++ String reasonPhrase()
++ boolean success()
++ Product product()
+}
+
+
+class org.example.app.dto.product.ProductDtoDeleteResponse {
+- int statusCode
+- String reasonPhrase
+- boolean success
+- String message
++ {static} String SUCCESS_MESSAGE
++ {static} String FAILURE_MESSAGE
++ {static} ProductDtoDeleteResponse of(Long,boolean)
++ int statusCode()
++ String message()
++ String reasonPhrase()
++ boolean success()
+}
+
+
+class org.example.app.controller.ProductController {
+- ProductService service
++ Response create(ProductDtoRequest)
++ Response getAll()
++ Response getById(Long)
++ Response update(Long,ProductDtoRequest)
++ Response deleteById(Long)
+}
+
+
+class org.example.app.dto.user.UserDtoRequest {
+- Long id
+- String firstName
+- String lastName
+- String email
++ String lastName()
++ String firstName()
++ String email()
++ Long id()
+}
+
+
+
+
+org.glassfish.jersey.server.ResourceConfig <|-- org.example.app.config.AppResourceConfig
+org.example.app.service.product.ProductService <|.. org.example.app.service.product.ProductServiceImpl
+org.example.app.service.user.UserService <|.. org.example.app.service.user.UserServiceImpl
+org.example.app.repository.product.ProductRepository <|.. org.example.app.repository.product.ProductRepositoryImpl
+org.example.app.service.BaseService <|-- org.example.app.service.product.ProductService
+jakarta.ws.rs.core.Feature <|.. org.example.app.config.ApplicationBinder
+org.example.app.repository.BaseRepository <|-- org.example.app.repository.product.ProductRepository
+org.example.app.service.BaseService <|-- org.example.app.service.user.UserService
+org.example.app.repository.BaseRepository <|-- org.example.app.repository.user.UserRepository
+org.example.app.repository.user.UserRepository <|.. org.example.app.repository.user.UserRepositoryImpl
+@enduml

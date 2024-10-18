@@ -1,0 +1,98 @@
+
+REST API Product
+---------------------
+
+Postman для тесту REST API
+https://www.postman.com/
+
+Для здійснення кожного запиту, натискаємо Send .
+Якщо REST-запит має тіло, необхідно налаштування
+в Postman: Body > raw > JSON.
+
+
+(1) Створення даних
+
+POST
+http://localhost:8080/Your-Project-Name-1.0-SNAPSHOT/api/v1/products
+
+Виконуємо окремі запити
+
+{
+    "productName": "orange",
+    "measure": "kg",
+    "quota": 15,
+    "price": 1.59
+}
+
+{
+    "productName": "mango",
+    "measure": "item",
+    "quota": 27,
+    "price": 2.99
+}
+
+{
+    "productName": "potato",
+    "measure": "kg",
+    "quota": 34,
+    "price": 1.09
+}
+
+{
+    "productName": "kiwi",
+    "measure": "box",
+    "quota": 16,
+    "price": 3.95
+}
+
+{
+    "productName": "banana",
+    "measure": "kg",
+    "quota": 42,
+    "price": 1.95
+}
+
+Перевіремо через MySQL Workbench.
+
+
+(2) Отримання всіх даних
+
+GET
+http://localhost:8080/Your-Project-Name-1.0-SNAPSHOT/api/v1/products
+
+
+(3) Отримання даних за id
+
+GET
+http://localhost:8080/Your-Project-Name-1.0-SNAPSHOT/api/v1/products/3
+
+Також, за неіснуючим id
+
+GET
+http://localhost:8080/Your-Project-Name-1.0-SNAPSHOT/api/v1/products/9
+
+
+(4) Оновлення даних за id
+
+PUT
+http://localhost:8080/Your-Project-Name-1.0-SNAPSHOT/api/v1/products/3
+
+{
+    "productName": "potato",
+    "measure": "kg",
+    "quota": 23,
+    "price": 1.15
+}
+
+Перевіремо через MySQL Workbench та REST-запит за відповідним id.
+Також, спробуємо оновити за неіснуючим id.
+
+
+(5) Видалення даних за id
+
+DELETE
+http://localhost:8080/Your-Project-Name-1.0-SNAPSHOT/api/v1/products/4
+
+Перевіремо через MySQL Workbench, REST-запити отримання всіх даних
+та за відповідним id.
+Також, спробуємо повторно видалити та тим самим id, та за неіснуючим id.
